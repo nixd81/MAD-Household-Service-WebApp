@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #C9C9C9;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .logo {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .logo img {
+            width: 350px;
+            height: auto;
+        }
+
+        .slogan {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        .Name {
+            font-size: 30px;
+            color:black;
+            margin-bottom: 20px
+        }
+
+        .role-button {
+            width: 300px;
+            margin: 8px;
+            padding: 15px 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color:black;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 20px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .role-button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="{{ url_for('static', filename='symbol.png') }}" alt="Dot Pattern Logo">
+
+        <div class="Name"> Nirvixo</div>
+        <div class="slogan">Your Home, Our Responsibility</div>
+    </div>
+
+    <a href="/login/customer" class="role-button">Customer</a>
+    <a href="/login/professional" class="role-button">Service Professional</a>
+    <a href="/login/admin" class="role-button">Admin</a>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Registration</title>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #d3d3d3;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 300px;
+    }
+    input[type="text"], input[type="password"] {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #333;
+    }
+    button {
+        padding: 10px;
+        background-color: #333;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .flash-message {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        color:white;
+        font-weight: bold;
+    }
+    .success { background-color: #28a745; }
+    .error { background-color: #dc3545; }
+</style>
+</head>
+<body>
+    <h2>Professional Registration</h2>
+
+    <!-- Flash Message Display -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash-message {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('professional_register') }}" enctype="multipart/form-data">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="service_type">Service type:</label>
+        <input type="text" id="service_type" name="service_type">
+        
+        <label for="experience">Experience(in months):</label>
+        <input type="text" id="experience" name="experience">
+
+        <label for="phone_number">Phone number:</label>
+        <input type="text" id="phone_number" name="phone_number">
+
+        
+
+        <label for="pdf">Upload PDF:</label>
+        <input type="file" id="pdf" name="pdf" accept=".pdf" required>
+
+ 
+        <button type="submit">Submit</button>
+        <button type="button" onclick="window.location.href='/login/professional'">Back to Login</button>
+    </form>
+</body>
+</html>
+
+
+
+

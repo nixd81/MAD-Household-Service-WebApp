@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Login</title>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #d3d3d3;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 300px;
+    }
+    input[type="text"], input[type="password"] {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #333;
+    }
+    .btn {
+        padding: 10px;
+        background-color: #333;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .btn-register {
+        background-color: #555;
+    }
+</style>
+</head>
+<body>
+    <h2>{{ role.capitalize() }} Login</h2>
+    <form action="#" method="post">
+        <label for="username">Email:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit" class="btn">Login</button>
+       
+        <a href="{{ url_for('customer_register') }}" class="btn btn-register">Register</a>
+        
+
+
+
+    </form>
+</body>
+</html>

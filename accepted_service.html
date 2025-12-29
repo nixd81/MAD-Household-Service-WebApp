@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accepted Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color:black; 
+            color:white;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #c9c9c9; 
+        }
+        .header img {
+            height: 40px;
+            margin-right: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color:black; 
+        }
+
+        .content {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            background-color: #1a1a1a; 
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .content h2 {
+            color: #007bff; 
+            text-align: center;
+        }
+
+        .details p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .details strong {
+            color: blue; 
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #007bff; 
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #0056b3; 
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .back-btn .btn {
+            background-color: #28a745; 
+        }
+
+        .back-btn .btn:hover {
+            background-color: #218838; 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <img src="{{ url_for('static', filename='symbol.png') }}" alt="Logo">
+        <h1>Accepted Service</h1>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="content">
+        <h2>Service Details</h2>
+        <div class="details">
+            <p><strong>Service ID:</strong> {{ service_request.id }}</p>
+            <p><strong>Status:</strong> {{ service_request.service_status }}</p>
+            <p><strong>Date of Request:</strong> {{ service_request.date_of_request }}</p>
+            <p><strong>Professional:</strong> {{ professional.username }}</p>
+            <p><strong>Professional's Phone Number:</strong> {{ professional.phone_number }}</p>
+            <p><strong>Professional's Experience (in months):</strong> {{ professional.experience }}</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="btn-container">
+            <form method="POST" action="/rate/{{ service_request.id }}">
+                <button type="submit" name="close_service" class="btn">Close Service</button>
+            </form>
+        </div>
+
+        <!-- Go Back Button -->
+        <div class="back-btn">
+            <a href="{{ url_for('customer_homepage') }}" class="btn">Go Back to Home</a>
+        </div>
+    </div>
+
+</body>
+</html>

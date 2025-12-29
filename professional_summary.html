@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Summary</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: black;
+        }
+        
+        .navbar {
+            margin-bottom: 20px;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            color:white;
+        }
+        .navbar-nav .nav-link {
+            color: white;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #ffd700; 
+        }
+        
+        .card {
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            font-size: 1.25rem;
+        }
+        .card-body {
+            background-color: white;
+            padding: 20px;
+        }
+        .service-table th, .service-table td {
+            text-align: center;
+        }
+        .service-table th {
+            background-color: #f1f1f1;
+        }
+        .service-table td {
+            vertical-align: middle;
+        }
+       
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+      
+        @media (max-width: 767px) {
+            .service-table th, .service-table td {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Professional Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/professional_homepage">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/chat_with_customer">Chat with Customer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout/professional">Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+
+        <!-- Professional Info -->
+        <div class="card">
+            <div class="card-header">
+                <h4>Professional Summary - {{ professional.username }}</h4>
+            </div>
+            <div class="card-body">
+                <h5>Details:</h5>
+                <p><strong>Service Type:</strong> {{ professional.service_type }}</p>
+                <p><strong>Experience:</strong> {{ professional.experience }} years</p>
+                <p><strong>Phone Number:</strong> {{ professional.phone_number }}</p>
+            </div>
+        </div>
+
+        <!-- Earnings Section -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Total Earnings</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Total Earnings from Completed Services:</strong> ₹{{ total_earnings }}</p>
+            </div>
+        </div>
+
+        <!-- Rating Section -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Ratings & Remarks</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Average Rating:</strong> {{ average_rating }}</p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Rating</th>
+                            <th>Remark</th>
+                            <th>Date of Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rating in ratings_and_remarks %}
+                        <tr>
+                            <td>{{ rating.rating }}</td>
+                            <td>{{ rating.remark }}</td>
+                            <td>{{ rating.date_of_rating.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Completed Services Section -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Completed Services</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered service-table">
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Price (₹)</th>
+                            <th>Date of Request</th>
+                            <th>Date of Completion</th>
+                            <th>Customer Name</th>
+                            <th>Customer Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for service in service_details %}
+                        <tr>
+                            <td>{{ service.service_name }}</td>
+                            <td>{{ service.service_price }}</td>
+                            <td>{{ service.date_of_request.strftime('%Y-%m-%d') }}</td>
+                            <td>{{ service.date_of_completion.strftime('%Y-%m-%d') }}</td>
+                            <td>{{ service.customer_name }}</td>
+                            <td>{{ service.customer_phone }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+   
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

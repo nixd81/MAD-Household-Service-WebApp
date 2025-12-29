@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Ratings</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Ratings for {{ professional.username }}</h2>
+        <table class="table table-bordered mt-4">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Rating ID</th>
+                    <th>Service Request ID</th>
+                    <th>Rating</th>
+                    <th>Remark</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rating in ratings %}
+                    <tr>
+                        <td>{{ rating.id }}</td>
+                        <td>{{ rating.service_request_id }}</td>
+                        <td>{{ rating.rating }}</td>
+                        <td>{{ rating.remark }}</td>
+                        <td>{{ rating.date_of_rating.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('admin_search') }}" class="btn btn-secondary">Back to Search</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Search</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        .header {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .table {
+            margin-top: 30px;
+        }
+        .search-section {
+            margin-top: 30px;
+        }
+        .search-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="container">
+        <div class="header">
+            <h2>Welcome to the Admin Dashboard</h2>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <form method="GET" action="{{ url_for('admin_search') }}">
+                <div class="form-group">
+                    <label for="search_type">Search By:</label><br>
+                    <input type="radio" id="service_professional" name="search_type" value="service_professional" {% if search_type == 'service_professional' %} checked {% endif %}>
+                    <label for="service_professional">Service Professional</label>
+                    <input type="radio" id="customer" name="search_type" value="customer" {% if search_type == 'customer' %} checked {% endif %}>
+                    <label for="customer">Customer</label>
+                    <input type="radio" id="service" name="search_type" value="service" {% if search_type == 'service' %} checked {% endif %}>
+                    <label for="service">Service</label><br><br>
+                    
+                    <label for="query">Search Query:</label>
+                    <input type="text" id="query" name="query" class="form-control" value="{{ query }}" required><br><br>
+                    
+                    <button type="submit" class="search-btn">Search</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        {% if search_results %}
+            <h3>Search Results:</h3>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        {% if search_type == 'service_professional' %}
+                            <th>Username</th>
+                            <th>Service Type</th>
+                            <th>Experience</th>
+                            <th>Action</th>
+                            <th>Phone Number</th>
+                        {% elif search_type == 'customer' %}
+                            <th>Username</th>
+                            <th>Location</th>
+                            <th>Phone Number</th>
+                        {% elif search_type == 'service' %}
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Price (INR)</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in search_results %}
+                        <tr>
+                            {% if search_type == 'service_professional' %}
+                                <td>
+                                    <a href="{{ url_for('professional_ratings', professional_id=result.id) }}">
+                                        {{ result.username }}
+                                    </a>
+                                </td>
+                                <td>{{ result.service_type }}</td>
+                                <td>{{ result.experience }}</td>
+                                <td>
+                                    <form action="{{ url_for('delete_professional', prof_id=result.id) }}" method="POST">
+                                        <button type="submit" class="action-btn">Delete</button>
+                                    </form>
+                                </td>
+                                <td>{{ result.phone_number}}</td>
+                            {% elif search_type == 'customer' %}
+                                <td>{{ result.username }}</td>
+                                <td>{{ result.location }}</td>
+                                <td>{{ result.phone_number}}</td>
+                            {% elif search_type == 'service' %}
+                                <td>{{ result.name }}</td>
+                                <td>{{ result.description }}</td>
+                                <td>{{ result.price }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+        {% endif %}
+    </div>
+    <div class="back-btn">
+        <a href="{{ url_for('admin_homepage') }}" class="btn">Go Back to Home</a>
+    </div>
+
+  
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

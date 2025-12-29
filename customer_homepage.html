@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Homepage</title>
+  <style>
+    
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      color:white; 
+    }
+
+    /* Navigation Bar Styles */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333; 
+      padding: 10px 20px;
+    }
+
+    .navbar .nav-left, .navbar .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .navbar a:hover {
+      background-color: #555; 
+    }
+
+    .edit-profile-btn {
+      padding: 8px 15px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 20px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .edit-profile-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .logout-btn {
+      background-color: #dc3545; /
+    }
+
+    .logout-btn:hover {
+      background-color: #c82333;
+    }
+
+    /* Main Content */
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Search Bar */
+    .search-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .search-input {
+      padding: 10px;
+      width: 300px;
+      border-radius: 20px;
+      border: 1px solid #444;
+      outline: none;
+      background-color: #222;
+      color: white;
+    }
+
+    .search-btn {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .search-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Service List */
+    .service-list {
+      width: 80%;
+      max-width: 600px;
+      list-style: none;
+      padding: 0;
+      text-align: center;
+    }
+
+    .service-list li {
+      padding: 15px;
+      background-color: #1a1a1a; 
+      margin-bottom: 10px;
+      border-radius: 10px;
+    }
+
+    .service-link {
+      color:white;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .service-link:hover {
+      color: #007bff; 
+    }
+
+    .no-services {
+      font-style: italic;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <div class="nav-left">
+      
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('chat_with_professional') }}">Chat with Professional</a>
+      <a href="{{ url_for('customer_summary', customer_id=customer.id) }}">Summary</a>
+
+    </div>
+    <div class="nav-right">
+      <a href="{{ url_for('edit_profile') }}" class="edit-profile-btn">Edit Profile</a>
+      <a href="{{ url_for('customer_logout') }}" class="edit-profile-btn logout-btn">Log Out</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+<div class="content">
+  <!-- Welcome Message -->
+  <h1>Welcome to your dashboard, {{ customer.username }}!</h1>
+  
+  <h2>Available Services</h2>
+
+  <!-- Search Form -->
+  <div class="search-container">
+    <form method="get" action="{{ url_for('customer_homepage') }}">
+      <input type="text" name="search" class="search-input" placeholder="Search services..." value="{{ request.args.get('search', '') }}">
+      <button type="submit" class="search-btn">Search</button>
+    </form>
+  </div>
+
+  <!-- Service List -->
+  <ul class="service-list">
+    {% if services %}
+      {% for service in services %}
+        <li>
+          <a href="{{ url_for('view_services_by_name', service_name=service) }}" class="service-link">
+            {{ service }}
+          </a>
+        </li>
+      {% endfor %}
+    {% else %}
+      <li class="no-services">No services found.</li>
+    {% endif %}
+  </ul>
+</div>
+
+
+</body>
+</html>
